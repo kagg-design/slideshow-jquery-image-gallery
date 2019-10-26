@@ -1,15 +1,17 @@
 <?php
-/*
- Plugin Name: Slideshow
- Plugin URI: http://wordpress.org/extend/plugins/slideshow-jquery-image-gallery/
- Description: The slideshow plugin is easily deployable on your website. Add any image that has already been uploaded to add to your slideshow, add text slides, or even add a video. Options and styles are customizable for every single slideshow on your website.
- Version: 2.3.1
- Requires at least: 3.5
- Author: StefanBoonstra
- Author URI: http://stefanboonstra.com/
- License: GPLv2
- Text Domain: slideshow-jquery-image-gallery
-*/
+/**
+ *  Plugin Name: Slideshow
+ * Plugin URI: http://wordpress.org/extend/plugins/slideshow-jquery-image-gallery/
+ * Description: The slideshow plugin is easily deployable on your website. Add any image that has already been uploaded to add to your slideshow, add text slides, or even add a video. Options and styles are customizable for every single slideshow on your website.
+ * Version: 3.0
+ * Requires at least: 3.5
+ * Author: StefanBoonstra
+ * Author URI: http://stefanboonstra.com/
+ * License: GPLv2
+ * Text Domain: slideshow-jquery-image-gallery
+ *
+ * @package slideshow
+ */
 
 /**
  * Class SlideshowPluginMain fires up the application on plugin load and provides some
@@ -22,7 +24,7 @@
 class SlideshowPluginMain
 {
 	/** @var string $version */
-	static $version = '2.3.1';
+	static $version = '3.0';
 
 	/**
 	 * Bootstraps the application by assigning the right functions to
