@@ -1,12 +1,13 @@
 <?php
+
 /**
  * SlideshowPluginSlideshowStylesheet handles the loading of the slideshow's stylesheets.
  *
- * @since 2.2.8
+ * @since  2.2.8
  * @author Stefan Boonstra
  */
-class SlideshowPluginSlideshowStylesheet
-{
+class SlideshowPluginSlideshowStylesheet {
+
 	/** @var bool $allStylesheetsRegistered */
 	public static $allStylesheetsRegistered = false;
 
@@ -15,51 +16,45 @@ class SlideshowPluginSlideshowStylesheet
 	 *
 	 * @since 2.2.12
 	 */
-	public static function init()
-	{
-		add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueFrontendStylesheets'));
+	public static function init() {
+		add_action( 'wp_enqueue_scripts', [ __CLASS__, 'enqueueFrontendStylesheets' ] );
 	}
 
 	/**
 	 * Enqueue stylesheet
 	 */
-	public static function enqueueFrontendStylesheets()
-	{
-		if (SlideshowPluginGeneralSettings::getStylesheetLocation() === 'head')
-		{
-			// Register functional stylesheet
+	public static function enqueueFrontendStylesheets() {
+		if ( SlideshowPluginGeneralSettings::getStylesheetLocation() === 'head' ) {
+			// Register functional stylesheet.
 			wp_enqueue_style(
 				'slideshow-jquery-image-gallery-stylesheet_functional',
 				SlideshowPluginMain::getPluginUrl() . '/style/SlideshowPlugin/functional.css',
-				array(),
+				[],
 				SlideshowPluginMain::$version
 			);
 
-			// Get default and custom stylesheets
-			$stylesheets        = SlideshowPluginGeneralSettings::getStylesheets(true, true);
+			// Get default and custom stylesheets.
+			$stylesheets        = SlideshowPluginGeneralSettings::getStylesheets( true, true );
 			$defaultStylesheets = $stylesheets['default'];
 			$customStylesheets  = $stylesheets['custom'];
 
-			// Clean the '.css' extension from the default stylesheets
-			foreach ($defaultStylesheets as $defaultStylesheetKey => $defaultStylesheetValue)
-			{
-				$newDefaultStylesheetKey = str_replace('.css', '', $defaultStylesheetKey);
+			// Clean the '.css' extension from the default stylesheets.
+			foreach ( $defaultStylesheets as $defaultStylesheetKey => $defaultStylesheetValue ) {
+				$newDefaultStylesheetKey = str_replace( '.css', '', $defaultStylesheetKey );
 
-				$defaultStylesheets[$newDefaultStylesheetKey] = $defaultStylesheetValue;
+				$defaultStylesheets[ $newDefaultStylesheetKey ] = $defaultStylesheetValue;
 
-				if ($defaultStylesheetKey !== $newDefaultStylesheetKey)
-				{
-					unset($defaultStylesheets[$defaultStylesheetKey]);
+				if ( $defaultStylesheetKey !== $newDefaultStylesheetKey ) {
+					unset( $defaultStylesheets[ $defaultStylesheetKey ] );
 				}
 			}
 
-			// Enqueue stylesheets
-			foreach (array_merge($defaultStylesheets, $customStylesheets) as $stylesheetKey => $stylesheetValue)
-			{
+			// Enqueue stylesheets.
+			foreach ( array_merge( $defaultStylesheets, $customStylesheets ) as $stylesheetKey => $stylesheetValue ) {
 				wp_enqueue_style(
 					'slideshow-jquery-image-gallery-ajax-stylesheet_' . $stylesheetKey,
-					admin_url('admin-ajax.php?action=slideshow_jquery_image_gallery_load_stylesheet&style=' . $stylesheetKey, 'admin'),
-					array(),
+					admin_url( 'admin-ajax.php?action=slideshow_jquery_image_gallery_load_stylesheet&style=' . $stylesheetKey, 'admin' ),
+					[],
 					$stylesheetValue['version']
 				);
 			}
@@ -75,63 +70,53 @@ class SlideshowPluginSlideshowStylesheet
 	 * Returns the name and version number of the stylesheet that's been enqueued, as this can be different from the
 	 * name passed. This can be this case if a stylesheet does not exist and a default stylesheet is enqueued.
 	 *
-	 * @param string $name (optional, defaults to null)
+	 * @param string|null $name (optional, defaults to null).
+	 *
 	 * @return array [$name, $version]
 	 */
-	public static function enqueueStylesheet($name = null)
-	{
+	public static function enqueueStylesheet( $name = null ) {
 		$enqueueDynamicStylesheet = true;
 		$version                  = SlideshowPluginMain::$version;
 
-		if (isset($name))
-		{
-			// Try to get the custom style's version
-			$customStyle        = get_option($name, false);
+		if ( isset( $name ) ) {
+			// Try to get the custom style's version.
+			$customStyle        = get_option( $name, false );
 			$customStyleVersion = false;
 
-			if ($customStyle)
-			{
-				$customStyleVersion = get_option($name . '_version', false);
+			if ( $customStyle ) {
+				$customStyleVersion = get_option( $name . '_version', false );
 			}
 
-			// Style name and version
-			if ($customStyle && $customStyleVersion)
-			{
+			// Style name and version.
+			if ( $customStyle && $customStyleVersion ) {
 				$version = $customStyleVersion;
-			}
-			else
-			{
+			} else {
 				$enqueueDynamicStylesheet = false;
-				$name                     = str_replace('.css', '', $name);
+				$name                     = str_replace( '.css', '', $name );
 			}
-		}
-		else
-		{
+		} else {
 			$enqueueDynamicStylesheet = false;
 			$name                     = 'style-light';
 		}
 
-		// Enqueue stylesheet
-		if ($enqueueDynamicStylesheet)
-		{
+		// Enqueue stylesheet.
+		if ( $enqueueDynamicStylesheet ) {
 			wp_enqueue_style(
 				'slideshow-jquery-image-gallery-ajax-stylesheet_' . $name,
-				admin_url('admin-ajax.php?action=slideshow_jquery_image_gallery_load_stylesheet&style=' . $name, 'admin'),
-				array(),
+				admin_url( 'admin-ajax.php?action=slideshow_jquery_image_gallery_load_stylesheet&style=' . $name, 'admin' ),
+				[],
 				$version
 			);
-		}
-		else
-		{
+		} else {
 			wp_enqueue_style(
 				'slideshow-jquery-image-gallery-stylesheet_' . $name,
 				SlideshowPluginMain::getPluginUrl() . '/css/' . $name . '.css',
-				array(),
+				[],
 				$version
 			);
 		}
 
-		return array($name, $version);
+		return [ $name, $version ];
 	}
 
 	/**
@@ -145,33 +130,28 @@ class SlideshowPluginSlideshowStylesheet
 	 *
 	 * @since 2.2.11
 	 */
-	public static function loadStylesheetByAJAX()
-	{
-		$styleName = filter_input(INPUT_GET, 'style', FILTER_SANITIZE_SPECIAL_CHARS);
+	public static function loadStylesheetByAJAX() {
+		$styleName = filter_input( INPUT_GET, 'style', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		// If no style name is set, all stylesheets will be loaded.
-		if (isset($styleName) &&
-			!empty($styleName) &&
-			strlen($styleName) > 0)
-		{
-			$stylesheet = self::getStylesheet($styleName);
-		}
-		else
-		{
+		if ( isset( $styleName ) &&
+		     ! empty( $styleName ) &&
+		     strlen( $styleName ) > 0 ) {
+			$stylesheet = self::getStylesheet( $styleName );
+		} else {
 			return;
 		}
 
-		// Exit if headers have already been sent
-		if (headers_sent())
-		{
+		// Exit if headers have already been sent.
+		if ( headers_sent() ) {
 			return;
 		}
 
-		// Set header to CSS. Cache for a year (as WordPress does)
-		header('Content-Type: text/css; charset=UTF-8');
-		header('Expires: ' . gmdate("D, d M Y H:i:s", time() + 31556926) . ' GMT');
-		header('Pragma: cache');
-		header("Cache-Control: public, max-age=31556926");
+		// Set header to CSS. Cache for a year (as WordPress does).
+		header( 'Content-Type: text/css; charset=UTF-8' );
+		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + 31556926 ) . ' GMT' );
+		header( 'Pragma: cache' );
+		header( 'Cache-Control: public, max-age=31556926' );
 
 		echo $stylesheet;
 
@@ -181,42 +161,38 @@ class SlideshowPluginSlideshowStylesheet
 	/**
 	 * Gets the stylesheet with the parsed style name, then returns it.
 	 *
-	 * @since 2.2.8
 	 * @param string $styleName
+	 *
 	 * @return string $stylesheet
+	 * @since 2.2.8
 	 */
-	public static function getStylesheet($styleName)
-	{
-		// Get custom style keys
-		$customStyleKeys = array_keys(get_option(SlideshowPluginGeneralSettings::$customStyles, array()));
+	public static function getStylesheet( $styleName ) {
+		// Get custom style keys.
+		$customStyleKeys = array_keys( get_option( SlideshowPluginGeneralSettings::$customStyles, [] ) );
 
 		// Match $styleName against custom style keys
-		if (in_array($styleName, $customStyleKeys))
-		{
-			// Get custom stylesheet
-			$stylesheet = get_option($styleName, '');
-		}
-		else
-		{
+		if ( in_array( $styleName, $customStyleKeys ) ) {
+			// Get custom stylesheet.
+			$stylesheet = get_option( $styleName, '' );
+		} else {
 			$stylesheetFile = SlideshowPluginMain::getPluginPath() . DIRECTORY_SEPARATOR . 'style' . DIRECTORY_SEPARATOR . 'SlideshowPlugin' . DIRECTORY_SEPARATOR . $styleName . '.css';
 
-			if (!file_exists($stylesheetFile))
-			{
+			if ( ! file_exists( $stylesheetFile ) ) {
 				$stylesheetFile = SlideshowPluginMain::getPluginPath() . DIRECTORY_SEPARATOR . 'style' . DIRECTORY_SEPARATOR . 'SlideshowPlugin' . DIRECTORY_SEPARATOR . 'style-light.css';
 			}
 
-			// Get contents of stylesheet
+			// Get contents of stylesheet.
 			ob_start();
-			include($stylesheetFile);
+			include $stylesheetFile;
 			$stylesheet = ob_get_clean();
 		}
 
-		// Replace the URL placeholders with actual URLs and add a unique identifier to separate stylesheets
-		$stylesheet = str_replace('%plugin-url%', SlideshowPluginMain::getPluginUrl(), $stylesheet);
-		$stylesheet = str_replace('%site-url%', get_bloginfo('url'), $stylesheet);
-		$stylesheet = str_replace('%stylesheet-url%', get_stylesheet_directory_uri(), $stylesheet);
-		$stylesheet = str_replace('%template-url%', get_template_directory_uri(), $stylesheet);
-		$stylesheet = str_replace('.slideshow_container', '.slideshow_container_' . $styleName, $stylesheet);
+		// Replace the URL placeholders with actual URLs and add a unique identifier to separate stylesheets.
+		$stylesheet = str_replace( '%plugin-url%', SlideshowPluginMain::getPluginUrl(), $stylesheet );
+		$stylesheet = str_replace( '%site-url%', get_bloginfo( 'url' ), $stylesheet );
+		$stylesheet = str_replace( '%stylesheet-url%', get_stylesheet_directory_uri(), $stylesheet );
+		$stylesheet = str_replace( '%template-url%', get_template_directory_uri(), $stylesheet );
+		$stylesheet = str_replace( '.slideshow_container', '.slideshow_container_' . $styleName, $stylesheet );
 
 		return $stylesheet;
 	}

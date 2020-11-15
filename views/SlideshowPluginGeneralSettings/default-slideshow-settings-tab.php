@@ -1,24 +1,27 @@
 <?php
 
-if ($data instanceof stdClass) :
+if ( $data instanceof stdClass ) :
 
-	// Default settings
-	$defaultSettings      = SlideshowPluginSlideshowSettingsHandler::getDefaultSettings(true);
-	$defaultStyleSettings = SlideshowPluginSlideshowSettingsHandler::getDefaultStyleSettings(true);
+	// Default settings.
+	$defaultSettings      = SlideshowPluginSlideshowSettingsHandler::getDefaultSettings( true );
+	$defaultStyleSettings = SlideshowPluginSlideshowSettingsHandler::getDefaultStyleSettings( true );
 
 	?>
 
 	<div class="default-slideshow-settings-tab" style="display: none; float: none;">
 		<p>
-			<strong><?php _e('Note', 'slideshow-jquery-image-gallery'); ?>:</strong>
+			<strong><?php esc_html_e( 'Note', 'slideshow-jquery-image-gallery' ); ?>:</strong>
 		</p>
 
 		<p style="width: 500px;">
 			<?php
 
-			echo sprintf(__(
-				'The settings set on this page apply only to newly created slideshows and therefore do not alter any existing ones. To adapt a slideshow\'s settings, %sclick here.%s', 'slideshow-jquery-image-gallery'),
-				'<a href="' . get_admin_url(null, 'edit.php?post_type=' . SlideshowPluginPostType::$postType) . '">',
+			echo sprintf(
+				esc_html__(
+					'The settings set on this page apply only to newly created slideshows and therefore do not alter any existing ones. To adapt a slideshow\'s settings, %1$sclick here.%2$s',
+					'slideshow-jquery-image-gallery'
+				),
+				'<a href="' . get_admin_url( null, 'edit.php?post_type=' . SlideshowPluginPostType::$postType ) . '">',
 				'</a>'
 			);
 
@@ -28,19 +31,22 @@ if ($data instanceof stdClass) :
 
 	<div class="default-slideshow-settings-tab feature-filter" style="display: none;">
 
-		<h4><?php _e('Default Slideshow Settings', 'slideshow-jquery-image-gallery'); ?></h4>
+		<h4><?php esc_html_e( 'Default Slideshow Settings', 'slideshow-jquery-image-gallery' ); ?></h4>
 
 		<table>
 
 			<?php $groups = array(); ?>
-			<?php foreach($defaultSettings as $defaultSettingKey => $defaultSettingValue): ?>
+			<?php foreach ( $defaultSettings as $defaultSettingKey => $defaultSettingValue ) : ?>
 
-			<?php if(!empty($defaultSettingValue['group']) && !isset($groups[$defaultSettingValue['group']])): $groups[$defaultSettingValue['group']] = true; ?>
+				<?php
+				if ( ! empty( $defaultSettingValue['group'] ) && ! isset( $groups[ $defaultSettingValue['group'] ] ) ) :
+					$groups[ $defaultSettingValue['group'] ] = true;
+					?>
 
 			<tr>
 				<td colspan="3" style="border-bottom: 1px solid #dfdfdf; text-align: center;">
 					<span style="display: inline-block; position: relative; top: 14px; padding: 0 12px; background: #fff;">
-						<?php echo $defaultSettingValue['group']; ?> <?php _e('settings', 'slideshow-jquery-image-gallery'); ?>
+						<?php echo $defaultSettingValue['group']; ?> <?php esc_html_e( 'settings', 'slideshow-jquery-image-gallery' ); ?>
 					</span>
 				</td>
 			</tr>
@@ -69,18 +75,18 @@ if ($data instanceof stdClass) :
 			</tr>
 
 			<?php endforeach; ?>
-			<?php unset($groups); ?>
+			<?php unset( $groups ); ?>
 
 		</table>
 	</div>
 
 	<div class="default-slideshow-settings-tab feature-filter" style="display: none;">
 
-		<h4><?php _e('Default Slideshow Stylesheet', 'slideshow-jquery-image-gallery'); ?></h4>
+		<h4><?php esc_html_e( 'Default Slideshow Stylesheet', 'slideshow-jquery-image-gallery' ); ?></h4>
 
 		<table>
 
-			<?php foreach($defaultStyleSettings as $defaultStyleSettingKey => $defaultStyleSettingValue): ?>
+			<?php foreach ( $defaultStyleSettings as $defaultStyleSettingKey => $defaultStyleSettingValue ) : ?>
 
 			<tr>
 				<td>

@@ -1,10 +1,10 @@
-<?php if ($data instanceof stdClass) : ?>
+<?php if ( $data instanceof stdClass ) : ?>
 	<div class="updated" style="background: #f7f7f7; border-color: #dfdfdf;">
 		<div style="float: left; width: 50%;">
-			<h3><?php _e('Help to keep this plugin free!', 'slideshow-jquery-image-gallery'); ?></h3>
+			<h3><?php esc_html_e( 'Help to keep this plugin free!', 'slideshow-jquery-image-gallery' ); ?></h3>
 
 			<p>
-				<?php _e('In order to keep you provided with the newest features, updates and bug fixes, a lot of motivation is required. Therefore I\'m kindly asking you to consider making a small donation to the plugin or rating it as 5-stars on Wordpress.org. Thank you in advance!', 'slideshow-jquery-image-gallery'); ?>
+				<?php esc_html_e( 'In order to keep you provided with the newest features, updates and bug fixes, a lot of motivation is required. Therefore I\'m kindly asking you to consider making a small donation to the plugin or rating it as 5-stars on Wordpress.org. Thank you in advance!', 'slideshow-jquery-image-gallery' ); ?>
 			</p>
 		</div>
 
@@ -13,7 +13,7 @@
 				<input
 					type="button"
 					class="button-secondary"
-					value="<?php _e('Rate on Wordpress.org', 'slideshow-jquery-image-gallery'); ?>"
+					value="<?php esc_html_e( 'Rate on Wordpress.org', 'slideshow-jquery-image-gallery' ); ?>"
 					onclick="window.open('http://wordpress.org/extend/plugins/slideshow-jquery-image-gallery/')"
 				/>
 			</p>
@@ -22,7 +22,7 @@
 				<input
 						type="button"
 						class="button-secondary"
-						value="<?php _e('Frequently Asked Questions (FAQ)', 'slideshow-jquery-image-gallery'); ?>"
+						value="<?php esc_html_e( 'Frequently Asked Questions (FAQ)', 'slideshow-jquery-image-gallery' ); ?>"
 						onclick="window.open('http://wordpress.org/extend/plugins/slideshow-jquery-image-gallery/faq/')"
 						/>
 			</p>

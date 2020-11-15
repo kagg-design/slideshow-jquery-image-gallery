@@ -6,17 +6,16 @@
  * @since 2.0.0
  * @author: Stefan Boonstra
  */
-class SlideshowPluginAJAX
-{
+class SlideshowPluginAJAX {
+
 	/**
 	 * Called as early as possible to be able to have as light as possible AJAX requests. Hooks can be added here as to
 	 * have early execution.
 	 *
 	 * @since 2.0.0
 	 */
-	static function init()
-	{
-		add_action('wp_ajax_slideshow_jquery_image_gallery_load_stylesheet', array('SlideshowPluginSlideshowStylesheet', 'loadStylesheetByAJAX'));
-		add_action('wp_ajax_nopriv_slideshow_jquery_image_gallery_load_stylesheet', array('SlideshowPluginSlideshowStylesheet', 'loadStylesheetByAJAX'));
+	public static function init() {
+		add_action( 'wp_ajax_slideshow_jquery_image_gallery_load_stylesheet', array( 'SlideshowPluginSlideshowStylesheet', 'loadStylesheetByAJAX' ) );
+		add_action( 'wp_ajax_nopriv_slideshow_jquery_image_gallery_load_stylesheet', array( 'SlideshowPluginSlideshowStylesheet', 'loadStylesheetByAJAX' ) );
 	}
 }
