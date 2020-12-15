@@ -6,7 +6,6 @@
 
 .slideshow_container .slideshow_view {
 	width: 700px !important;
-	max-width: 100% !important;
 }
 
 .slideshow_container .slideshow_view .slideshow_slide {
@@ -16,9 +15,19 @@
 	float: none !important;
 }
 
+.page-id-14 .slideshow_container,
+.page-id-11358 .slideshow_container {
+	width: 375px !important;
+}
+
+.page-id-14 .slideshow_container .slideshow_view,
+.page-id-11358 .slideshow_container .slideshow_view {
+	width: 375px !important;
+}
+
 .page-id-14 .slideshow_container .slideshow_view .slideshow_slide,
 .page-id-11358 .slideshow_container .slideshow_view .slideshow_slide {
-	width: 450px !important;
+	width: 375px !important;
 }
 
 .slideshow_container_style-light a { text-decoration: none; }
