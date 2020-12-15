@@ -44,9 +44,10 @@ class SlideshowPluginShortcode {
 	 * is found and adds the postId to an array, it then is loaded after
 	 * WordPress has done its HTML checks.
 	 *
-	 * @since 1.2.0
-	 * @param mixed $attributes
+	 * @param mixed $attributes Attributes.
+	 *
 	 * @return String $output
+	 * @since 1.2.0
 	 */
 	public static function slideshowDeploy( $attributes ) {
 		$postId = '';
@@ -57,8 +58,7 @@ class SlideshowPluginShortcode {
 
 		$settings = SlideshowPluginSlideshowSettingsHandler::getSettings( $postId );
 
-		if ( 'true' === $settings['avoidFilter'] &&
-			strlen( current_filter() ) > 0 ) {
+		if ( isset( $settings['avoidFilter'] ) && 'true' === $settings['avoidFilter'] && strlen( current_filter() ) > 0 ) {
 			// Avoid current filter, call function to replace the bookmark with the slideshow.
 			add_filter( current_filter(), array( __CLASS__, 'insertSlideshow' ), 999 );
 
